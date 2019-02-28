@@ -92,16 +92,20 @@ public class PacketSudoPlugin extends JavaPlugin {
             }
             // endregion
 
-            // region receive packet
-            receivePacket(player, command);
-            // endregion
-
-            // region restore
-            if (force) {
-                fieldHumanEntity_perm.set(player, backup);
+            try {
+                // region receive packet
+                receivePacket(player, command);
+                // endregion
+            } catch (Throwable e) {
+                throw new Exception("error occurred receiving packet", e);
+            } finally {
+                // region restore
+                if (force) {
+                    fieldHumanEntity_perm.set(player, backup);
+                }
+                if (restoreOp) player.setOp(false);
+                // endregion
             }
-            if (restoreOp) player.setOp(false);
-            // endregion
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
