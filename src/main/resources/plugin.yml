@@ -1,0 +1,35 @@
+name: ${project.name}
+main: org.totemcraft.packetsudo.PacketSudoPlugin
+version: ${project.version}
+author: i@thetd.me
+commands:
+  packetsudo:
+    usage: /<command> <目标玩家> <指令>
+    description: 强制目标玩家执行指定指令
+    aliases: [psudo]
+    permission: packetsudo.command.packetsudo
+  packetsudoforce:
+    usage: /<command> <目标玩家> <指令>
+    description: 强制目标玩家以高权限执行指定指令
+    aliases: [psudof]
+    permission: packetsudo.command.packetsudoforce
+  packetsudoop:
+    usage: /<command> <目标玩家> <指令>
+    description: 强制目标玩家以op权限执行指定指令（不推荐）
+    aliases: [psudoop]
+    permission: packetsudo.command.packetsudoop
+permissions:
+  packetsudo.command.packetsudo:
+    description: 执行packetsudo指令的权限
+    default: op
+  packetsudo.command.packetsudoforce:
+    description: 执行packetsudoforce指令的权限
+    default: op
+    children:
+      packetsudo.command.packetsudo: true
+  packetsudo.command.packetsudoop:
+    description: 执行packetsudoop指令的权限
+    default: op
+    children:
+      packetsudo.command.packetsudo: true
+      packetsudo.command.packetsudoforce: true
